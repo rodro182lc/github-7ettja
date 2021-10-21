@@ -1,0 +1,27 @@
+@import 'color.scss';
+
+:host::ng-deep {
+  .text-decoration-strikethrough.igx-grid__td--editing {
+    text-decoration: none currentcolor solid;
+  }
+
+  .igx-grid__thead-item {
+    background: $cf-bg-nav-light;
+    color: $cf-dark-blue !important;
+  }
+  .igx-grid__thead-wrapper {
+    border-bottom: 1px solid $cf-dark-gray;
+  }
+}
+
+.missing-tooltip {
+  width: 230px;
+}
+
+.confirmed-tooltip {
+  width: 180px;
+}
+
+.event-name-column {
+  cursor: default;
+}

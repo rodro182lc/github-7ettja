@@ -1,0 +1,63 @@
+<igx-icon
+  role="button"
+  fontSet="material"
+  class="expand-collapse-row"
+  [igxTooltipTarget]="ttRef"
+>
+  {{ icon }}
+</igx-icon>
+<div
+  #ttRef="tooltip"
+  igxTooltip
+  [hidden]="
+    !trip.icons.appointment.missingAppointment &&
+    !trip.icons.appointment.confirmedAppointment &&
+    !trip.icons.ace.danger &&
+    !trip.icons.ace.warning &&
+    !trip.icons.ace.success &&
+    !trip.icons.aci.danger &&
+    !trip.icons.aci.warning &&
+    !trip.icons.aci.success &&
+    !trip.icons.fuelWarning
+  "
+>
+  <span
+    class="missing-appointment"
+    [hidden]="!trip.icons.appointment.missingAppointment"
+  >
+    📞 Call customer for appointment
+  </span>
+  <span
+    class="confirmed-appointment"
+    [hidden]="!trip.icons.appointment.confirmedAppointment"
+  >
+    🚪 Appointment confirmed
+  </span>
+  <span class="ace-danger" [hidden]="!trip.icons.ace.danger">
+    <span class="red-bullet-icon">●</span>
+    ACE Not Submitted or Rejected
+  </span>
+  <span class="ace-warning" [hidden]="!trip.icons.ace.warning">
+    <span class="yellow-bullet-icon">●</span>
+    ACE Submitted or Accepted
+  </span>
+  <span class="ace-success" [hidden]="!trip.icons.ace.success">
+    <span class="green-bullet-icon">●</span>
+    ACE Entry Linked
+  </span>
+  <span class="aci-danger" [hidden]="!trip.icons.aci.danger">
+    <span class="red-bullet-icon">●</span>
+    ACI Not Submitted or Rejected
+  </span>
+  <span class="aci-warning" [hidden]="!trip.icons.aci.warning">
+    <span class="yellow-bullet-icon">●</span>
+    ACI Submitted or Accepted
+  </span>
+  <span class="aci-success" [hidden]="!trip.icons.aci.success">
+    <span class="green-bullet-icon">●</span>
+    ACI Entry Linked
+  </span>
+  <span class="fuel-warning" [hidden]="!trip.icons.fuelWarning">
+    ⚠️ Low reefer fuel level or deviation
+  </span>
+</div>

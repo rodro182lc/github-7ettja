@@ -1,0 +1,329 @@
+<div class="grid-container">
+  <ng-template igxHeader let-column #headerTemplate>
+    <div [attr.draggable]="false" (pointerdown)="onHeaderClick($event, column)">
+      <div
+        class="igx-grid-th__icons ng-star-inserted"
+        title="Move the column"
+        [attr.draggable]="true"
+      >
+        <div
+          [attr.draggable]="true"
+          ng-reflect-ng-class="igx-excel-filter__icon"
+          class="igx-excel-filter__icon ng-star-inserted"
+        >
+          <igx-icon
+            [attr.draggable]="true"
+            class="material-icons igx-icon ng-star-inserted"
+            aria-hidden="true"
+            >multiple_stop</igx-icon
+          >
+        </div>
+      </div>
+      <span [attr.draggable]="false">{{ column.header }}</span>
+    </div>
+  </ng-template>
+  <igx-grid
+    id="tripboard-grid"
+    #tripsGrid
+    igxPreventDocumentScroll
+    appGridCopyClipboard
+    [data]="tripsData"
+    [rowHeight]="25"
+    [allowFiltering]="true"
+    [filterMode]="'excelStyleFilter'"
+    [isLoading]="isGridLoading"
+    [primaryKey]="tripGridColumn.TripId"
+    class="igx-expandable-grid-cell"
+    [rowSelection]="'single'"
+    [hideRowSelectors]="true"
+    [cellSelection]="'none'"
+    [autoGenerate]="false"
+    (columnInit)="onColumnInit($event)"
+    (contextMenu)="showTripsContextMenu($event, contextMenu)"
+    (rowSelected)="handleRowSelection()"
+    (rowToggle)="rowToggle($event)"
+    appGridPaginator
+    appGridState
+  >
+    <!-- Paginator Template -->
+    <igx-paginator>
+      <igx-paginator-content>
+        <igx-page-size></igx-page-size>
+        <igx-page-nav></igx-page-nav>
+      </igx-paginator-content>
+    </igx-paginator>
+    <!-- Grid columns -->
+    <!-- This first column is empty since it's only used to display the expand/collapse icon -->
+    <igx-column [width]="'20px'"></igx-column>
+    <igx-column
+      [field]="tripGridColumn.Trip"
+      header="Trip"
+      dataType="string"
+      [resizable]="true"
+      [sortable]="true"
+      [width]="'120px'"
+      [movable]="true"
+    >
+    </igx-column>
+    <igx-column
+      [field]="tripGridColumn.Driver"
+      header="Driver"
+      dataType="string"
+      [resizable]="true"
+      [sortable]="true"
+      [movable]="true"
+    >
+    </igx-column>
+    <igx-column
+      [field]="tripGridColumn.Truck"
+      header="Truck"
+      dataType="string"
+      [resizable]="true"
+      [sortable]="true"
+      [movable]="true"
+    >
+    </igx-column>
+    <igx-column
+      [field]="tripGridColumn.Trailer1"
+      header="Trailer 1"
+      dataType="string"
+      [resizable]="true"
+      [sortable]="true"
+      [movable]="true"
+    >
+    </igx-column>
+    <igx-column
+      [field]="tripGridColumn.TruckLocation"
+      header="Truck Loc"
+      dataType="string"
+      [resizable]="true"
+      [sortable]="true"
+      [movable]="true"
+      [width]="'150px'"
+    >
+    </igx-column>
+    <igx-column
+      [field]="tripGridColumn.TrailerLocation"
+      header="Trailer Loc"
+      dataType="string"
+      [resizable]="true"
+      [sortable]="true"
+      [movable]="true"
+      [width]="'150px'"
+    >
+    </igx-column>
+    <igx-column
+      [field]="tripGridColumn.NextEventETA"
+      header="ETA"
+      dataType="date"
+      [resizable]="true"
+      [sortable]="true"
+      [movable]="true"
+    >
+    </igx-column>
+    <igx-column
+      [field]="tripGridColumn.HOS"
+      header="HOS"
+      dataType="number"
+      [resizable]="true"
+      [sortable]="true"
+      [movable]="true"
+    >
+    </igx-column>
+    <igx-column
+      [field]="tripGridColumn.LastEvent"
+      header="Last Event"
+      dataType="string"
+      [resizable]="true"
+      [sortable]="true"
+      [movable]="true"
+    >
+      <ng-template
+        #lastEventTemplate
+        igxCell
+        let-cell="cell"
+        let-trip="cell.row.rowData"
+      >
+        <app-event-column
+          [cell]="cell"
+          [trip]="trip"
+          [eventType]="tripGridColumn.LastEvent"
+        >
+        </app-event-column>
+      </ng-template>
+    </igx-column>
+    <igx-column
+      [field]="tripGridColumn.LastDate"
+      header="Last Date"
+      dataType="date"
+      [resizable]="true"
+      [sortable]="true"
+      [movable]="true"
+    >
+    </igx-column>
+    <igx-column
+      [field]="tripGridColumn.LastLocation"
+      header="Last Location"
+      dataType="string"
+      [resizable]="true"
+      [sortable]="true"
+      [movable]="true"
+    >
+    </igx-column>
+    <igx-column
+      [field]="tripGridColumn.LastCity"
+      header="Last City"
+      dataType="string"
+      [resizable]="true"
+      [sortable]="true"
+      [movable]="true"
+    >
+    </igx-column>
+    <igx-column
+      [field]="tripGridColumn.NextEvent"
+      header="Next Event"
+      dataType="string"
+      [resizable]="true"
+      [sortable]="true"
+      [movable]="true"
+    >
+      <ng-template
+        #nextEventTemplate
+        igxCell
+        let-cell="cell"
+        let-trip="cell.row.rowData"
+      >
+        <app-event-column
+          [cell]="cell"
+          [trip]="trip"
+          [eventType]="tripGridColumn.NextEvent"
+        >
+        </app-event-column>
+      </ng-template>
+    </igx-column>
+    <igx-column
+      [field]="tripGridColumn.NextDate"
+      header="Next Date"
+      dataType="date"
+      [resizable]="true"
+      [sortable]="true"
+      [movable]="true"
+    >
+    </igx-column>
+    <igx-column
+      [field]="tripGridColumn.NextLocation"
+      header="Next Location"
+      dataType="string"
+      [resizable]="true"
+      [sortable]="true"
+      [movable]="true"
+    >
+    </igx-column>
+    <igx-column
+      [field]="tripGridColumn.NextCity"
+      header="Next City"
+      dataType="string"
+      [resizable]="true"
+      [sortable]="true"
+      [movable]="true"
+    >
+    </igx-column>
+    <igx-column
+      [field]="tripGridColumn.NextState"
+      header="N/S"
+      dataType="string"
+      [resizable]="true"
+      [sortable]="true"
+      [width]="'90px'"
+      [movable]="true"
+    >
+    </igx-column>
+    <igx-column
+      [field]="tripGridColumn.Category"
+      header="Category"
+      dataType="string"
+      [resizable]="true"
+      [sortable]="true"
+      [movable]="true"
+    >
+    </igx-column>
+    <igx-column
+      [field]="tripGridColumn.Dispatcher"
+      header="Dispatcher"
+      dataType="string"
+      [resizable]="true"
+      [sortable]="true"
+      [movable]="true"
+    >
+    </igx-column>
+    <igx-column
+      [field]="tripGridColumn.Status"
+      header="Status"
+      dataType="string"
+      [resizable]="true"
+      [sortable]="true"
+      [movable]="true"
+    >
+    </igx-column>
+
+    <!-- Filtering Template -->
+    <igx-grid-excel-style-filtering [minHeight]="'380px'" [maxHeight]="'500px'">
+      <igx-excel-style-column-operations>
+        <igx-excel-style-header [showPinning]="false" [showHiding]="false">
+        </igx-excel-style-header>
+      </igx-excel-style-column-operations>
+      <igx-excel-style-filter-operations>
+        <igx-excel-style-search></igx-excel-style-search>
+      </igx-excel-style-filter-operations>
+    </igx-grid-excel-style-filtering>
+
+    <!-- Expand/Collapse Template -->
+    <ng-template igxRowCollapsedIndicator let-row>
+      <app-toggle-events-column icon="add" [trip]="row.rowData">
+      </app-toggle-events-column>
+    </ng-template>
+    <ng-template igxRowExpandedIndicator let-row>
+      <app-toggle-events-column icon="remove" [trip]="row.rowData">
+      </app-toggle-events-column>
+    </ng-template>
+
+    <!-- Filter icon  -->
+    <ng-template igxExcelStyleHeaderIcon>
+      <igx-icon>filter_list</igx-icon>
+    </ng-template>
+    <ng-template igxGridDetail let-dataItem>
+      <div class="trip-event-div">
+        <app-trip-detail
+          [dataItem]="dataItem"
+          (addEvent)="openEventCreationDialog($event)"
+          (showCloseTrip)="openCloseTrip.emit($event)"
+          (tripRefreshed)="reloadTripEvents($event)"
+          (showTripPlanner)="openTripPlanner.emit($event)"
+          (upsertEvent)="openEventEditionInsertionDialog($event)"
+          (equipmentInformation)="openEquipmentInfo.emit($event)"
+          (applySeal)="openApplySeal.emit([$event])"
+          (showTripPropertiesDialog)="openTripProperties.emit($event)"
+          (showDriverAvailabilityDialog)="openDriverAvailability.emit($event)"
+          (openEquipmentFreight)="openEquipmentFreight.emit($event)"
+          (openUpdateLocation)="openUpdateLocation.emit($event)"
+          (showRemoveEventDialog)="openRemoveEvent.emit($event)"
+          (showBackhaulRequestDialog)="openBackhaulRequest.emit($event)"
+          (openAllApplySealDialog)="openApplySeal.emit($event.events || [])"
+          (rowSelected)="tripEventsRowSelected()"
+          (eventDatesChange)="onTripIdUpdated($event)"
+        >
+        </app-trip-detail>
+      </div>
+    </ng-template>
+
+    <!-- Row Pinning -->
+    <igx-action-strip>
+      <igx-grid-pinning-actions #pinningActions></igx-grid-pinning-actions>
+    </igx-action-strip>
+  </igx-grid>
+</div>
+<app-context-menu
+  #contextMenu
+  (itemSelected)="onTripContextItemClicked($event)"
+>
+</app-context-menu>

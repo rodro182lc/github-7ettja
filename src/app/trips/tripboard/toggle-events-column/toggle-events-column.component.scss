@@ -1,0 +1,56 @@
+@import 'color.scss';
+
+.expand-collapse-row {
+  color: $cf-orange !important;
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-left: -11px;
+}
+
+.bullet-icon {
+  font-size: 20px;
+}
+
+.red-bullet-icon {
+  @extend .bullet-icon;
+  color: $cf-red;
+}
+
+.yellow-bullet-icon {
+  @extend .bullet-icon;
+  color: $cf-yellow;
+}
+
+.green-bullet-icon {
+  @extend .bullet-icon;
+  color: $cf-green;
+}
+
+// Width for each icon tooltip
+.missing-appointment {
+  width: 230px;
+}
+.confirmed-appointment {
+  width: 180px;
+}
+.ace-danger {
+  width: 220px;
+}
+.ace-warning {
+  width: 210px;
+}
+.ace-success {
+  width: 130px;
+}
+.aci-danger {
+  width: 220px;
+}
+.aci-warning {
+  width: 200px;
+}
+.aci-success {
+  width: 130px;
+}
+.fuel-warning {
+  width: 240px;
+}

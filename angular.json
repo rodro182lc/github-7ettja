@@ -3,63 +3,102 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "demo": {
+    "charger-fleet-web": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
       "root": "",
       "sourceRoot": "src",
-      "projectType": "application",
+      "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/demo",
+            "outputPath": "dist/charger-fleet-web",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": ["src/favicon.ico", "src/assets", "src/env.js"],
             "styles": [
-              "src/styles.scss"
+              "src/dependencies/bootstrap-4.5.3/css/bootstrap-grid.min.css",
+              "node_modules/@trimblemaps/trimblemaps-js/trimblemaps.css",
+              "src/styles/styles.scss"
             ],
-            "scripts": []
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles",
+                "node_modules/@infragistics"
+              ]
+            },
+            "scripts": [
+              "./node_modules/automapper-ts/dist/automapper.min.js",
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./src/dependencies/bootstrap-4.5.3/js/bootstrap.min.js",
+              "./node_modules/hammerjs/hammer.min.js",
+              "./node_modules/@trimblemaps/trimblemaps-js/trimblemaps.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "automapper-ts/dist/automapper",
+              "@codewithdan/observable-store"
+            ]
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "5mb",
+                  "maximumError": "10mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "600kb",
+                  "maximumError": "1000kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "demo:build"
-          },
           "configurations": {
             "production": {
-              "browserTarget": "demo:build:production"
+              "browserTarget": "charger-fleet-web:build:production"
+            },
+            "development": {
+              "browserTarget": "charger-fleet-web:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "demo:build"
+            "browserTarget": "charger-fleet-web:build"
           }
         },
         "test": {
@@ -67,41 +106,48 @@
           "options": {
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.spec.json",
-            "karmaConfig": "src/karma.conf.js",
-            "styles": [
-              "styles.css"
-            ],
-            "scripts": [],
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/env.js"
+            ],
+            "styles": [
+              "src/dependencies/bootstrap-4.5.3/css/bootstrap-grid.min.css",
+              "node_modules/@trimblemaps/trimblemaps-js/trimblemaps.css",
+              "src/styles/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles",
+                "node_modules/@infragistics"
+              ]
+            },
+            "scripts": [
+              "./node_modules/automapper-ts/dist/automapper.min.js",
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./src/dependencies/bootstrap-4.5.3/js/bootstrap.min.js",
+              "./node_modules/hammerjs/hammer.min.js",
+              "./node_modules/@trimblemaps/trimblemaps-js/trimblemaps.js"
             ]
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
             ]
           }
         }
       }
     }
   },
-  "schematics": {
-    "@schematics/angular:component": {
-      "prefix": "app",
-      "styleext": "scss"
-    },
-    "@schematics/angular:directive": {
-      "prefix": "app"
-    }
-  },
-  "defaultProject": "demo"
+  "defaultProject": "charger-fleet-web",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }

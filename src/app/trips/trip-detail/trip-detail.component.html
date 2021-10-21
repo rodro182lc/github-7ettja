@@ -1,0 +1,39 @@
+<div *ngIf="dataItem.isExpanded">
+  <app-tripevents
+    [trip]="dataItem"
+    [contextMenuAvailable]="
+      dataItem.status?.toLowerCase() !== tripStatus.Completed.toLowerCase() &&
+      dataItem.status?.toLowerCase() !== tripStatus.Closed.toLowerCase()
+    "
+    (upsertEvent)="
+      openEventEditionInsertionDialog(
+        $event.trip,
+        $event.eventActionType,
+        $event.eventData,
+        $event.lastEventId
+      )
+    "
+    (equipmentInformation)="
+      openEquipmentInformationDialog(
+        $event.eventName,
+        $event.equipmentUnit,
+        $event.equipmentId
+      )
+    "
+    (applySeal)="openApplySealDialog($event.selectedEvent)"
+    (showTripPropertiesDialog)="openTripPropertiesDialog(dataItem)"
+    (showDriverAvailabilityDialog)="
+      openDriverAvailability(dataItem.tripId, $event)
+    "
+    (openEquipmentFreight)="openEquipmentFreightDialog($event, dataItem)"
+    (openUpdateLocation)="openUpdateLocationDialog($event)"
+    (showRemoveEventDialog)="openRemoveEventDialog($event)"
+    (showBackhaulRequestDialog)="
+      openBackhaulRequestDialog(dataItem.tripId, $event)
+    "
+    (openAllApplySealDialog)="openOnAllApplySealDialog(dataItem)"
+    (rowSelected)="tripEventsRowSelected()"
+    (eventDatesChange)="eventDatesChange.emit($event)"
+  >
+  </app-tripevents>
+</div>

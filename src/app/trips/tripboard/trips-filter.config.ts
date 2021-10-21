@@ -1,0 +1,92 @@
+import {
+  IFilteringOperation,
+  IgxStringFilteringOperand
+} from '@infragistics/igniteui-angular';
+import { DateTimeFilteringOperand } from '@shared/custom-filter-operands/date-time-filtering-operand.helper';
+import { NumberFilteringOperand } from '@shared/custom-filter-operands/number-filtering-operand.helper';
+import { TripGridColumn } from '../enumerations/trip-grid-column.enum';
+
+export const TRIPS_FILTER_CONFIG = new Map<
+  TripGridColumn | string,
+  IFilteringOperation
+>();
+TRIPS_FILTER_CONFIG.set(
+  TripGridColumn.Trip,
+  IgxStringFilteringOperand.instance().condition('contains')
+);
+TRIPS_FILTER_CONFIG.set(
+  TripGridColumn.Driver,
+  IgxStringFilteringOperand.instance().condition('contains')
+);
+TRIPS_FILTER_CONFIG.set(
+  TripGridColumn.Truck,
+  IgxStringFilteringOperand.instance().condition('contains')
+);
+TRIPS_FILTER_CONFIG.set(
+  TripGridColumn.Trailer1,
+  IgxStringFilteringOperand.instance().condition('contains')
+);
+TRIPS_FILTER_CONFIG.set(
+  TripGridColumn.TruckLocation,
+  IgxStringFilteringOperand.instance().condition('contains')
+);
+TRIPS_FILTER_CONFIG.set(
+  TripGridColumn.TrailerLocation,
+  IgxStringFilteringOperand.instance().condition('contains')
+);
+TRIPS_FILTER_CONFIG.set(
+  TripGridColumn.NextEventETA,
+  DateTimeFilteringOperand.instance().condition('medium-datetime-contains')
+);
+TRIPS_FILTER_CONFIG.set(
+  TripGridColumn.HOS,
+  NumberFilteringOperand.instance().condition('time-span-contains')
+);
+TRIPS_FILTER_CONFIG.set(
+  TripGridColumn.LastEvent,
+  IgxStringFilteringOperand.instance().condition('contains')
+);
+TRIPS_FILTER_CONFIG.set(
+  TripGridColumn.LastDate,
+  DateTimeFilteringOperand.instance().condition('medium-datetime-contains')
+);
+TRIPS_FILTER_CONFIG.set(
+  TripGridColumn.LastLocation,
+  IgxStringFilteringOperand.instance().condition('contains')
+);
+TRIPS_FILTER_CONFIG.set(
+  TripGridColumn.LastCity,
+  IgxStringFilteringOperand.instance().condition('contains')
+);
+TRIPS_FILTER_CONFIG.set(
+  TripGridColumn.NextEvent,
+  IgxStringFilteringOperand.instance().condition('contains')
+);
+TRIPS_FILTER_CONFIG.set(
+  TripGridColumn.NextDate,
+  DateTimeFilteringOperand.instance().condition('medium-datetime-contains')
+);
+TRIPS_FILTER_CONFIG.set(
+  TripGridColumn.NextLocation,
+  IgxStringFilteringOperand.instance().condition('contains')
+);
+TRIPS_FILTER_CONFIG.set(
+  TripGridColumn.NextCity,
+  IgxStringFilteringOperand.instance().condition('contains')
+);
+TRIPS_FILTER_CONFIG.set(
+  TripGridColumn.NextState,
+  IgxStringFilteringOperand.instance().condition('contains')
+);
+TRIPS_FILTER_CONFIG.set(
+  TripGridColumn.Category,
+  IgxStringFilteringOperand.instance().condition('contains')
+);
+TRIPS_FILTER_CONFIG.set(
+  TripGridColumn.Dispatcher,
+  IgxStringFilteringOperand.instance().condition('contains')
+);
+TRIPS_FILTER_CONFIG.set(
+  TripGridColumn.Status,
+  IgxStringFilteringOperand.instance().condition('contains')
+);

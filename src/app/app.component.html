@@ -1,1 +1,31 @@
-<app-grid-master-detail></app-grid-master-detail>
+<ng-container *ngIf="isUserAuthenticated">
+  <igx-toast class="success-toast" #successToast></igx-toast>
+  <igx-toast class="failure-toast" #failureToast></igx-toast>
+  <main>
+    <div class="container-fluid">
+      <div class="row">
+        <div
+          class="pl-0 pr-0 no-scroll-horizontal"
+          [class.col]="!showMessages"
+          [class.col-9]="showMessages"
+        >
+          <nav>
+            <div class="d-flex align-items-center">
+              <div class="flex-fill">
+                <ng-container *ngComponentOutlet="dynamicToolbarComponent">
+                </ng-container>
+              </div>
+              <div class="mr-auto"></div>
+            </div>
+          </nav>
+          <div class="content">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</ng-container>
+<div *ngIf="!isUserAuthenticated" class="non-authenticated-view">
+  <img alt="Logo" />
+</div>

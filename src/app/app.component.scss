@@ -1,0 +1,31 @@
+@import 'color.scss';
+@import 'size.scss';
+
+nav {
+}
+.content {
+  overflow-y: auto;
+  height: calc(100vh);
+}
+
+.no-scroll-horizontal {
+  overflow-x: hidden !important;
+}
+
+.non-authenticated-view {
+  background-color: $cf-dark-blue;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+igx-toast.success-toast {
+  background-color: $cf-green;
+  color: $cf-black;
+}
+
+igx-toast.failure-toast {
+  background-color: $cf-red;
+  color: $cf-white;
+}

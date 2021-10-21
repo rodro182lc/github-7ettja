@@ -1,0 +1,48 @@
+import { UserAuthSettings } from './user-auth-settings.model';
+import { Terminal } from '@shared/models/trips/terminal.model';
+import { TripRole } from '@shared/models/trips/trip-role.model';
+import { TripStatus } from '@shared/models/trips/trip-status.model';
+import { SettingCategory } from './profile/setting-category.model';
+import { TripQuery } from '@shared/models/trips/trip-query.model';
+import { EventType } from '@shared/models/trips/event-type.model';
+import { EquipmentType } from '@shared/models/trips/equipment-type.model';
+import { HandlingType } from '@shared/models/trips/handling-type.model';
+import { TripReeferMode } from '@shared/models/trips/trip-reefer-mode.model';
+import { PickUpType } from '@shared/models/trips/pick-up-type.model';
+import { EventLocationStatus } from '@shared/models/trips/event-location-status.model';
+import { EventLocationTimeZone } from '@shared/models/trips/event-location-time-zone';
+import { TripAuxiliaryItem } from '@shared/models/trips/trip-auxiliary-item.model';
+import { Country } from '@shared/models/trips/country,model';
+import { Unit } from '@shared/models/trips/unit.model';
+import { ProbillStatus } from '@shared/models/trips/probill-status.model';
+import { TrailerLoadStatus } from '@shared/models/trips/trailer-load-status.model';
+import { TrailerStatus } from '@shared/models/trips/trailer-status.model';
+import { NoteType } from './note-type.model';
+import { TruckStatus } from './trips/truck-status.model';
+import { DriverStatus } from './trips/driver-status.model';
+
+export interface StoreState {
+  userAuthSettings: UserAuthSettings;
+  terminals: Terminal[];
+  tripRoles: TripRole[];
+  tripStatuses: TripStatus[];
+  tripQuery: TripQuery;
+  settingCategories: SettingCategory[];
+  eventTypes: EventType[];
+  handlingTypes: HandlingType[];
+  equipmentTypes: EquipmentType[];
+  tripReeferModes: TripReeferMode[];
+  pickUpTypes: PickUpType[];
+  eventLocationStatuses: EventLocationStatus[];
+  eventLocationTimeZones: EventLocationTimeZone[];
+  tripAuxItems: TripAuxiliaryItem[];
+  countries: Country[];
+  quantities: Unit[];
+  weights: Unit[];
+  probillStatuses: ProbillStatus[];
+  trailerLoadStatuses: TrailerLoadStatus[];
+  trailerStatuses: TrailerStatus[];
+  truckStatuses: TruckStatus[];
+  driverStatuses: DriverStatus[];
+  noteTypes: NoteType[];
+}

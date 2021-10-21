@@ -1,0 +1,106 @@
+<!-- Column content -->
+<span
+  [hidden]="!cell.value"
+  [ngClass]="{
+    'event-danger-unable-calc':
+      eventType === column.LastEvent
+        ? trip?.icons?.finalEvent?.dangerUnableCalc
+        : trip?.icons?.nextEvent?.dangerUnableCalc,
+    'event-danger':
+      eventType === column.LastEvent
+        ? trip?.icons?.finalEvent?.danger
+        : trip?.icons?.nextEvent?.danger,
+    'event-warning':
+      eventType === column.LastEvent
+        ? trip?.icons?.finalEvent?.warning
+        : trip?.icons?.nextEvent?.warning,
+    'event-success':
+      eventType === column.LastEvent
+        ? trip?.icons?.finalEvent?.success
+        : trip?.icons?.nextEvent?.success
+  }"
+  [igxTooltipTarget]="eventTTRef"
+>
+  {{ cell.value }}
+</span>
+<i
+  class="fas fa-times pl-1"
+  [igxTooltipTarget]="crossTTRef"
+  [hidden]="
+    eventType === column.LastEvent
+      ? !trip?.icons?.finalEvent?.cross
+      : !trip?.icons?.nextEvent?.cross
+  "
+>
+</i>
+<i
+  class="fas fa-exclamation-triangle red-exclamation-icon pl-1"
+  [igxTooltipTarget]="redExclamationTTRef"
+  [hidden]="
+    eventType !== column.LastEvent || !trip?.icons?.finalEvent?.redExclamation
+  "
+>
+</i>
+<!-- Tooltips displayed for the column -->
+<div #crossTTRef="tooltip" igxTooltip class="cross-tooltip">
+  All events are completed
+</div>
+<div
+  #eventTTRef="tooltip"
+  igxTooltip
+  [hidden]="
+    eventType === column.LastEvent
+      ? !trip?.icons?.finalEvent?.dangerUnableCalc &&
+        !trip?.icons?.finalEvent?.danger &&
+        !trip?.icons?.finalEvent?.warning &&
+        !trip?.icons?.finalEvent?.success
+      : !trip?.icons?.nextEvent?.dangerUnableCalc &&
+        !trip?.icons?.nextEvent?.danger &&
+        !trip?.icons?.nextEvent?.warning &&
+        !trip?.icons?.nextEvent?.success
+  "
+>
+  <span
+    [hidden]="
+      eventType === column.LastEvent
+        ? !trip?.icons?.finalEvent?.dangerUnableCalc
+        : !trip?.icons?.nextEvent?.dangerUnableCalc
+    "
+    class="danger-unable-calc-tooltip"
+  >
+    Unable to calculate ETA
+  </span>
+  <span
+    [hidden]="
+      eventType === column.LastEvent
+        ? !trip?.icons?.finalEvent?.danger
+        : !trip?.icons?.nextEvent?.danger
+    "
+    class="danger-tooltip"
+  >
+    Delayed for 60 minutes or more
+  </span>
+  <span
+    [hidden]="
+      eventType === column.LastEvent
+        ? !trip?.icons?.finalEvent?.warning
+        : !trip?.icons?.nextEvent?.warning
+    "
+    class="warning-tooltip"
+  >
+    Delayed for less than 60 minutes
+  </span>
+  <span
+    [hidden]="
+      eventType === column.LastEvent
+        ? !trip?.icons?.finalEvent?.success
+        : !trip?.icons?.nextEvent?.success
+    "
+    class="success-tooltip"
+  >
+    On time
+  </span>
+</div>
+<div #redExclamationTTRef="tooltip" igxTooltip class="red-exclamation-tooltip">
+  Further events are not planned
+</div>

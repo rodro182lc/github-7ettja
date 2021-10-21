@@ -1,0 +1,194 @@
+<div class="row m-0">
+  <div class="col-lg-9 p-0">
+    <igx-grid
+      id="trip-events-grid"
+      #eventsGrid
+      igxPreventDocumentScroll
+      appGridCopyClipboard
+      [data]="tripEventsData"
+      [rowHeight]="25"
+      [allowFiltering]="false"
+      [isLoading]="isGridLoading"
+      (contextMenu)="rightClick($event, contextMenu)"
+      (cellClick)="cellClicked($event)"
+      [primaryKey]="'id'"
+      [rowSelection]="'single'"
+      [hideRowSelectors]="true"
+      [cellSelection]="'none'"
+      (cellEditEnter)="editStart($event)"
+      (cellEdit)="editDone($event)"
+      (rowSelected)="rowSelected.emit()"
+    >
+      <igx-column
+        [field]="eventName"
+        [header]="'Event'"
+        [dataType]="'string'"
+        [resizable]="true"
+        [width]="'85px'"
+        [cellClasses]="allCssClasses"
+      >
+        <ng-template igxCell let-cell="cell" let-tripEvent="cell.row.rowData">
+          <span class="event-name-column" [title]="cell.value">
+            {{ cell.value }}
+          </span>
+          <span
+            class="event-name-column"
+            [hidden]="!tripEvent.icons.missingAppointment"
+            [igxTooltipTarget]="missingTTRef"
+          >
+            📞
+          </span>
+          <span
+            class="event-name-column"
+            [hidden]="!tripEvent.icons.confirmedAppointment"
+            [igxTooltipTarget]="confirmedTTRef"
+          >
+            🚪
+          </span>
+          <div #missingTTRef="tooltip" igxTooltip class="missing-tooltip">
+            Call customer for appointment
+          </div>
+          <div #confirmedTTRef="tooltip" igxTooltip class="confirmed-tooltip">
+            Appointment confirmed
+          </div>
+        </ng-template>
+      </igx-column>
+      <igx-column
+        [field]="'probillNo'"
+        [header]="'Probill'"
+        [dataType]="'string'"
+        [resizable]="true"
+        [width]="'80px'"
+        [cellClasses]="clickableCssClasses"
+      >
+      </igx-column>
+      <igx-column
+        [field]="'equipmentUnitAndStatus'"
+        [header]="'Truck/Trailer'"
+        [dataType]="'string'"
+        [resizable]="true"
+        [width]="'140px'"
+        [cellClasses]="clickableCssClasses"
+      >
+      </igx-column>
+      <igx-column
+        [field]="'location'"
+        [header]="'Location'"
+        [dataType]="'string'"
+        [resizable]="true"
+        [width]="'250px'"
+        [cellClasses]="allCssClasses"
+      >
+      </igx-column>
+      <igx-column
+        [field]="'cityWithState'"
+        [header]="'City'"
+        [dataType]="'string'"
+        [resizable]="true"
+        [width]="'125px'"
+        [cellClasses]="allCssClasses"
+      >
+      </igx-column>
+      <igx-column
+        [field]="'miles'"
+        [header]="'Miles'"
+        [dataType]="'number'"
+        [resizable]="true"
+        [width]="'75px'"
+        [cellClasses]="allCssClasses"
+      >
+      </igx-column>
+      <igx-column
+        [field]="'startTime'"
+        [header]="'Start Time'"
+        [dataType]="'date'"
+        [resizable]="true"
+        [width]="'180px'"
+        [cellClasses]="allCssClasses"
+        [formatter]="tripEventsCellFormattingHelper.formatStartTime"
+        [editable]="true"
+      >
+        <ng-template igxCellEditor let-cell="cell">
+          <igx-input-group [igxFocus]="true">
+            <input
+              appStopPropagation
+              appDateTimeEditorDelete
+              igxInput
+              type="text"
+              [igxDateTimeEditor]="EVENT_TIME_IGX_INPUT_FORMAT"
+              [(ngModel)]="cell.editValue"
+            />
+          </igx-input-group>
+        </ng-template>
+      </igx-column>
+      <igx-column
+        [field]="'endTime'"
+        [header]="'End Time'"
+        [dataType]="'date'"
+        [resizable]="true"
+        [width]="'180px'"
+        [cellClasses]="allCssClasses"
+        [formatter]="tripEventsCellFormattingHelper.formatEndTime"
+        [editable]="true"
+      >
+        <ng-template igxCellEditor let-cell="cell">
+          <igx-input-group [igxFocus]="true">
+            <input
+              appStopPropagation
+              appDateTimeEditorDelete
+              igxInput
+              type="text"
+              [igxDateTimeEditor]="EVENT_TIME_IGX_INPUT_FORMAT"
+              [(ngModel)]="cell.editValue"
+            />
+          </igx-input-group>
+        </ng-template>
+      </igx-column>
+      <igx-column
+        [field]="'etaDate'"
+        [header]="'ETA'"
+        [dataType]="'date'"
+        [resizable]="true"
+        [cellClasses]="allCssClasses"
+        [formatter]="tripEventsCellFormattingHelper.formatEtaDate"
+      >
+      </igx-column>
+      <igx-column
+        [field]="'status'"
+        [header]="'Status'"
+        [dataType]="'string'"
+        [resizable]="true"
+        [cellClasses]="allCssClasses"
+      >
+      </igx-column>
+      <igx-column
+        [field]="'waitTime'"
+        [header]="'Wait Time'"
+        [dataType]="'string'"
+        [resizable]="true"
+        [width]="'90px'"
+        [cellClasses]="allCssClasses"
+      >
+      </igx-column>
+      <igx-column
+        [field]="'detentionTime'"
+        [header]="'Detention Time'"
+        [dataType]="'string'"
+        [resizable]="true"
+        [cellClasses]="allCssClasses"
+      >
+      </igx-column>
+    </igx-grid>
+  </div>
+  <div class="col-lg-3 p-0">
+    <!-- Trips Toolbar Component -->
+    <div></div>
+  </div>
+</div>
+
+<!-- Context Menu Component -->
+<app-context-menu
+  #contextMenu
+  (itemSelected)="onContextMenuItemClicked($event)"
+>
+</app-context-menu>

@@ -1,0 +1,51 @@
+@import 'color.scss';
+
+.event-badge {
+  padding: 2px 6px 1px 6px;
+  color: $cf-white;
+  border-radius: 0.25em;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 10%), 0 1px 2px rgb(0 0 0 / 18%);
+  font-size: 90%;
+  font-weight: 600;
+  cursor: default;
+}
+
+.event-success {
+  @extend .event-badge;
+  background: $cf-green !important;
+}
+
+.event-warning {
+  @extend .event-badge;
+  background: $cf-yellow !important;
+}
+
+.event-danger,
+.event-danger-unable-calc {
+  @extend .event-badge;
+  background: $cf-red !important;
+}
+
+.red-exclamation-icon {
+  color: $cf-red;
+}
+
+// Width for each icon tooltip
+.cross-tooltip {
+  width: 180px;
+}
+.danger-unable-calc-tooltip {
+  width: 180px;
+}
+.danger-tooltip {
+  width: 210px;
+}
+.warning-tooltip {
+  width: 220px;
+}
+.success-tooltip {
+  width: 55px;
+}
+.red-exclamation-tooltip {
+  width: 220px;
+}

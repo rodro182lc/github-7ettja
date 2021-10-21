@@ -1,0 +1,20 @@
+<!-- tabindex="0" makes the div focusable -->
+<div
+  #contextMenuElement
+  [hidden]="!isVisible"
+  tabindex="0"
+  class="contextmenu"
+  [ngStyle]="{
+    'left.px': configuration.xPosition,
+    'top.px': configuration.yPosition
+  }"
+  (blur)="hide()"
+>
+  <span
+    *ngFor="let item of configuration.menuItems"
+    [ngClass]="'item' + (item.needSeparator ? ' style-bottom-line' : '')"
+    (click)="onMenuItemSelected(item)"
+  >
+    {{ item.itemText }}
+  </span>
+</div>

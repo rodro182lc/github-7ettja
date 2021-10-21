@@ -1,0 +1,135 @@
+# Docker
+# Build a Docker image
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- main
+
+resources:
+- repo: self
+
+variables:
+# a regular variable
+- name: tag
+  value: '$(Build.BuildId)'
+- name: dockerRegistryServiceConnection
+  value: $(containerRegistryConnection)
+- name: dockerRepositoryName
+  value: $(containerRepositoryName)
+- name: dockerContainerRegistry
+  value: $(containerRegistryName)
+- name: infragisticsNpmRegistryUrl
+  value: $(CInfragisticsNpmRegistryUrl)
+- name: infragisticsNpmRegistryJsLicensedUrl
+  value: $(CInfragisticsNpmRegistryJsLicensedUrl)
+- name: devEnv
+  value: 'CfChargerFleet-Dev-QA.default'
+- name: qaEnv
+  value: 'CfChargerFleet-QA.qa'
+- name: prodEnv
+  value: 'CfChargerFleet-PROD'
+- name: vmImageName
+  value: 'ubuntu-latest'
+# a variable group
+- group: Dev-Environment
+- name: infragisticsPAT
+  value: $[variables.CfInfragisticsPAT]
+
+stages:
+- stage: BuildandPush
+  displayName: Build and push stage
+  jobs:
+  - job: BuildandPush
+    displayName: Build and Push Image
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build Image
+      inputs:
+        command: build
+        dockerfile: '$(Build.SourcesDirectory)/charger-fleet-web/Dockerfile'
+        arguments: '--build-arg INFRAGISTICS_PAT=$(infragisticsPAT) --build-arg INFRAGISTICS_NPM_REGISTRY_URL=$(infragisticsNpmRegistryUrl) --build-arg INFRAGISTICS_NPM_JS_LICENSED_URL=$(infragisticsNpmRegistryJsLicensedUrl) --build-arg BUILD_ENV=Dev'
+        repository: '$(dockerRepositoryName)'
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: $(tag)
+    - task: Docker@2
+      displayName: Push Image
+      inputs:
+        command: push
+        containerRegistry: '$(dockerRegistryServiceConnection)'
+        repository: '$(dockerRepositoryName)'
+        tags: $(tag)
+
+    - publish: $(System.DefaultWorkingDirectory)/charger-fleet-web/K8s
+      artifact: k8s
+
+- stage: DeployDev
+  displayName: Deploy DEV stage
+  dependsOn: BuildandPush
+  jobs:
+  - deployment: DeployDev
+    displayName: Deploy DEV
+    pool:
+      vmImage: $(vmImageName)
+    environment: $(devEnv)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: KubernetesManifest@0
+            displayName: Deploy to Dev AKS
+            inputs:
+              action: deploy
+              manifests: |
+                $(Pipeline.Workspace)/k8s/Dev/k8s-deployment.yml
+                $(Pipeline.Workspace)/k8s/Dev/k8s-service.yml
+              containers: |
+                $(dockerContainerRegistry)/$(dockerRepositoryName):$(tag)
+
+- stage: DeployQa
+  displayName: Deploy QA stage
+  dependsOn: BuildandPush
+  jobs:
+  - deployment: DeployQa
+    displayName: Deploy QA
+    pool:
+      vmImage: $(vmImageName)
+    environment: $(qaEnv)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: KubernetesManifest@0
+            displayName: Deploy to QA AKS
+            inputs:
+              action: deploy
+              namespace: qa
+              manifests: |
+                $(Pipeline.Workspace)/k8s/Qa/k8s-deployment.yml
+                $(Pipeline.Workspace)/k8s/Qa/k8s-service.yml
+              containers: |
+                $(dockerContainerRegistry)/$(dockerRepositoryName):$(tag)
+- stage: DeployProd
+  displayName: Deploy Prod stage
+  dependsOn: BuildandPush
+  jobs:
+  - deployment: DeployProd
+    displayName: Deploy Prod
+    pool: Charger-Vmss-CfTmsGlobalMgm-Dev-Agent-Pool
+    environment: $(prodEnv)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: KubernetesManifest@0
+            displayName: Deploy to Prod AKS
+            inputs:
+              action: deploy
+              namespace: default
+              kubernetesServiceConnection: 'CfChargerFleet-PROD'
+              manifests: |
+                $(Pipeline.Workspace)/k8s/Prod/k8s-deployment.yml
+                $(Pipeline.Workspace)/k8s/Prod/k8s-service.yml
+              containers: |
+                $(dockerContainerRegistry)/$(dockerRepositoryName):$(tag)
