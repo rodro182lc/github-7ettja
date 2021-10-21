@@ -1,0 +1,141 @@
+@import 'color.scss';
+@import 'ignite-customization.scss';
+@import 'size.scss';
+
+// ARCH HINT: You can add global styles to this file
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+}
+
+// Scrollbar formatting, compatibility with firefox
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $cf-scroollbar-background;
+}
+
+::-webkit-scrollbar {
+  height: $cf-scrollbar-height;
+  width: $cf-scrollbar-width;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $cf-light-gray;
+  border: 1px solid $cf-border-gray;
+  border-radius: $cf-scrollbar-border-radius;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $cf-dark-blue;
+}
+
+::-webkit-input-placeholder {
+  color: $cf-black;
+}
+
+// General class applied to form validation messages
+.error-message {
+  display: block;
+  color: $cf-red;
+  font-size: smaller;
+}
+
+.error-message-inline {
+  display: inline-block;
+  color: $cf-red;
+  font-size: smaller;
+}
+
+// General class applied to form success messages
+.success-message {
+  display: block;
+  color: $cf-green;
+  font-size: smaller;
+}
+
+// General class applied to form validation warning messages
+.warning-message {
+  display: block;
+  color: $cf-orange;
+  font-size: smaller;
+}
+
+// General classes for labels
+.lbl-title {
+  font-weight: 500;
+  color: $cf-black;
+  word-break: word-break;
+}
+
+.lbl-content {
+  color: $cf-black;
+  font-weight: 400;
+  word-break: word-break;
+}
+
+// General classes for grid cells
+.clickable-cell {
+  color: $cf-blue !important;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+// General classes for badge
+.badge {
+  cursor: auto !important;
+}
+
+// General classes for input text with number range
+.input-number-type {
+  border: 1px solid $cf-black;
+  height: 30px;
+  width: 70px;
+  border-radius: 4px;
+}
+
+// General classes for subtext
+.lbl-sub-text {
+  line-height: normal !important;
+  font-size: 11px !important;
+  color: $cf-black;
+}
+
+// General classes for real time updates
+.real-time {
+  border-width: '2px';
+  border-style: dotted;
+}
+
+.real-time-updated {
+  @extend .real-time;
+  border-color: $cf-green;
+}
+
+.real-time-conflict {
+  @extend .real-time;
+  border-color: $cf-red;
+}
+
+.real-time-disclaimer {
+  font-size: 12px;
+  span {
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+  }
+}
+
+textarea {
+  width: 100%;
+  resize: none;
+}
+
+textarea.no-top-border {
+  border-top: none;
+}
+
+.text-decoration-strikethrough {
+  text-decoration: line-through;
+}

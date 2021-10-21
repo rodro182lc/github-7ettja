@@ -1,0 +1,196 @@
+@import 'color.scss';
+@import 'size.scss';
+
+// ARCH HINT: Setting our custom general theme
+@include igx-core();
+@include igx-theme($charger-fleet-palette);
+
+// ARCH HINT: Setting our custom styles for menu
+$charger-fleet-menu: igx-navdrawer-theme(
+  $background: $cf-dark-blue,
+  $item-active-background: $cf-blue,
+  $item-header-text-color: $cf-blue,
+  $item-icon-color: $cf-blue,
+  $item-hover-icon-color: $cf-blue,
+  $item-hover-text-color: $cf-blue
+);
+@include igx-navdrawer($charger-fleet-menu);
+
+// ARCH HINT: Setting our custom styles for dialogs
+igx-dialog-title {
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+  background-color: igx-color($charger-fleet-palette, 'primary');
+  color: igx-contrast-color($charger-fleet-palette, 'primary') !important;
+  font-size: 0.85rem !important;
+}
+
+// ARCH HINT: Setting our Highlight theme for igx-grid.
+$grid-highlight-theme: igx-highlight-theme(
+  $resting-background: igx-color($charger-fleet-palette, 'secondary'),
+  $resting-color: igx-contrast-color($charger-fleet-palette, 'secondary'),
+  $active-background: igx-color($charger-fleet-palette, 'secondary'),
+  $active-color: igx-contrast-color($charger-fleet-palette, 'secondary')
+);
+@include igx-highlight($grid-highlight-theme);
+
+// ARCH HINT: Setting our custom styles for igx-grid.
+$charger-fleet-grid-theme: igx-grid-theme(
+  $header-background: $cf-dark-blue,
+  $row-even-background: $cf-white,
+  $row-odd-background: $tr-bg,
+  $row-selected-background: $tr-highlight,
+  $filtering-row-background: $cf-white
+);
+.igx-typography {
+  font-family: 'Poppins', sans-serif;
+}
+@include igx-grid($charger-fleet-grid-theme);
+.igx-grid__th-title {
+  opacity: 1;
+}
+
+.igx-excel-filter__menu-main igx-list {
+  border: none;
+}
+.igx-grid__scroll {
+  background-color: $cf-white;
+}
+.igx-vhelper--horizontal {
+  background-color: $cf-white;
+}
+
+// ARCH HINT: Setting our custom styles for the igx-progress-circular component.
+$charger-fleet-spinner-theme: igx-progress-circular-theme(
+  $progress-circle-color: $cf-blue
+);
+@include igx-progress-circular($charger-fleet-spinner-theme);
+
+// ARCH HINT: Setting our custom styles for the igx-Input-Group component.
+$charger-fleet-input-group-theme: igx-input-group-theme(
+  $filled-text-color: $cf-black,
+  $focused-text-color: $cf-black,
+  $disabled-text-color: $cf-disabled,
+  $disabled-placeholder-color: $cf-disabled
+);
+@include igx-input-group($charger-fleet-input-group-theme);
+
+// ARCH HINT: Setting our custom styles for the igx-combo component.
+$charger-fleet-combo-theme: igx-combo-theme(
+  $empty-list-placeholder-color: $cf-black
+);
+@include igx-combo($charger-fleet-combo-theme);
+
+// ARCH HINT: Setting our custom styles for the igx-button-group component.
+$charger-fleet-button-group-theme: igx-button-group-theme(
+  $item-text-color: $cf-blue,
+  $item-background: $cf-gray,
+  $item-hover-background: $cf-blue,
+  $item-selected-background: $cf-blue,
+  $item-selected-hover-background: $cf-blue,
+  $selected-shadow-color: $cf-blue
+);
+@include igx-css-vars($charger-fleet-button-group-theme);
+
+// ARCH HINT: Setting our custom styles for the igx-expansion-panel component.
+$charger-fleet-expansion-panel-theme: igx-expansion-panel-theme(
+  $header-background: igx-color($charger-fleet-palette, 'secondary', 100),
+  $header-focus-background:
+    igx-color($charger-fleet-palette, 'secondary', 'A100'),
+  $header-title-color:
+    igx-contrast-color($charger-fleet-palette, 'secondary', 100),
+  $body-background: $cf-gray
+);
+@include igx-css-vars($charger-fleet-expansion-panel-theme);
+igx-expansion-panel {
+  igx-expansion-panel-title {
+    font-size: 16px !important;
+  }
+  .igx-expansion-panel__header-inner {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+}
+
+.igx-typography .igx-button,
+.igx-typography .igx-button--flat,
+.igx-typography .igx-button--raised,
+.igx-typography .igx-button--outlined {
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+}
+.igx-button-group__item--selected,
+.igx-button-group--vertical .igx-button-group__item--selected,
+.igx-button-group__item--selected:hover,
+.igx-button-group__item--selected:focus,
+.igx-button-group__item:hover,
+.igx-button-group__item--selected:hover,
+.igx-button-group__item:focus,
+.igx-button-group__item--selected:focus {
+  background: $cf-dark-blue;
+  color: $cf-white !important;
+}
+
+.igx-button--raised {
+  color: $cf-gray;
+  &.igx-button--disabled {
+    color: var(--disabled-foreground);
+  }
+}
+
+.igx-button-group__item,
+.igx-button-group__item--selected,
+.igx-button-group--vertical .igx-button-group__item,
+.igx-button-group--vertical .igx-button-group__item--selected {
+  border: none;
+}
+.igx-button-group__item--selected,
+.igx-button-group--vertical .igx-button-group__item--selected {
+  background: $cf-dark-blue;
+  color: $cf-white !important;
+}
+
+.igx-button-group,
+.igx-button-group--vertical {
+  box-shadow: none;
+  justify-content: space-between;
+  border-radius: 0;
+}
+.igx-button-group button {
+  padding: 5px 10px !important;
+  flex: none !important;
+  color: $cf-dark-blue;
+  margin: 5px 0 !important;
+  border-radius: 15px !important;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 10%), 0 1px 2px rgb(0 0 0 / 18%);
+}
+
+.igx-button--outlined-compact.igx-button--outlined,
+.igx-button--raised {
+  padding: 5px 10px !important;
+}
+
+.igx-input-group--search .igx-input-group__bundle {
+  padding: 0;
+  height: 30px;
+  margin-top: 4px;
+}
+.igx-input-group--compact .igx-input-group__input {
+  font-size: 0.8rem;
+}
+.igx-button--fab {
+  color: $cf-gray;
+}
+.igx-typography .igx-checkbox__label,
+.igx-typography .igx-checkbox__label--before {
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+.igx-button--fab igx-icon:hover {
+  color: $cf-light-gray;
+}
+
+input[igxInput][disabled]:hover {
+  cursor: no-drop;
+}

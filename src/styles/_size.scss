@@ -1,0 +1,122 @@
+// ARCH HINT: Use this file to define all size variables, they can be consumed from any component scss file
+// by importing it like this below (notice it's not needed to have a relatve path before the file name):
+// @import 'size.scss';
+$cf-xs-max-width: 575px;
+$cf-sm-max-width: 767px;
+$cf-md-max-width: 991px;
+$cf-lg-max-width: 1199px;
+
+$cf-toolbar-height: 36px;
+$cf-eventbar-height: 130px;
+$cf-main-toolbar-height: 54px;
+$cf-scrollbar-height: 9px;
+$cf-scrollbar-width: 9px;
+$cf-scrollbar-border-radius: 10px;
+$cf-checkbox-border-radius: 10px;
+
+$cf-xs-modal-max-height: 500px;
+$cf-md-modal-max-height: 670px;
+$cf-lg-modal-max-height: 770px;
+$cf-full-modal-height: calc(100vh - 110px);
+$cf-full-modal-width: calc(100vw - 65px);
+
+$cf-small-modal-md-width: 270px;
+$cf-small-modal-lg-width: 270px;
+$cf-small-modal-xl-width: 320px;
+
+$cf-medium-modal-md-width: 400px;
+$cf-medium-modal-lg-width: 500px;
+$cf-medium-modal-xl-width: 600px;
+
+$cf-large-modal-md-width: 600px;
+$cf-large-modal-lg-width: 800px;
+$cf-large-modal-xl-width: 1000px;
+
+// Base class to be applyed to all sized modals
+.modal-base {
+  width: $cf-full-modal-width;
+  max-height: $cf-xs-modal-max-height;
+  overflow-y: auto;
+  form {
+    // This margin fixes the issue in Firefox that showed the vertical scrollbar
+    // even when the modal didn't exceed max-height value
+    margin-bottom: 10px;
+  }
+
+  // From medium devices and up
+  @media (min-width: $cf-sm-max-width) {
+    max-height: $cf-md-modal-max-height;
+  }
+
+  // From large devices and up
+  @media (min-width: $cf-md-max-width) {
+    max-height: $cf-lg-modal-max-height;
+  }
+}
+
+// Sizes for small modals (There's not defined width for sm and xs so they could take all available width)
+.small-modal {
+  @extend .modal-base;
+
+  // From medium devices and up
+  @media (min-width: $cf-sm-max-width) {
+    width: $cf-small-modal-md-width;
+  }
+
+  // From large devices and up
+  @media (min-width: $cf-md-max-width) {
+    width: $cf-small-modal-lg-width;
+  }
+
+  // From extra large devices and up
+  @media (min-width: $cf-lg-max-width) {
+    width: $cf-small-modal-xl-width;
+  }
+}
+
+// Sizes for medium modals (There's not defined width for sm and xs so they could take all available width)
+.medium-modal {
+  @extend .modal-base;
+
+  // From medium devices and up
+  @media (min-width: $cf-sm-max-width) {
+    width: $cf-medium-modal-md-width;
+  }
+
+  // From large devices  and up
+  @media (min-width: $cf-md-max-width) {
+    width: $cf-medium-modal-lg-width;
+  }
+
+  // From extra large devices  and up
+  @media (min-width: $cf-lg-max-width) {
+    width: $cf-medium-modal-xl-width;
+  }
+}
+
+// Sizes for large modals (There's not defined width for sm and xs so they could take all available width)
+.large-modal {
+  @extend .modal-base;
+
+  // From medium devices and up
+  @media (min-width: $cf-sm-max-width) {
+    width: $cf-large-modal-md-width;
+  }
+
+  // From large devices  and up
+  @media (min-width: $cf-md-max-width) {
+    width: $cf-large-modal-lg-width;
+  }
+
+  // From extra large devices  and up
+  @media (min-width: $cf-lg-max-width) {
+    width: $cf-large-modal-xl-width;
+  }
+}
+
+.full-screen-modal {
+  height: $cf-full-modal-height;
+  width: $cf-full-modal-width;
+  max-height: $cf-full-modal-height;
+  overflow-y: auto;
+}

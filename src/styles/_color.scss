@@ -1,0 +1,72 @@
+// ARCH HINT: Use this file to define all color variables, they can be consumed from any component scss file
+// by importing it like this below (notice it's not needed to have a relatve path before the file name):
+// @import 'color.scss';
+
+/*
+****** Getting the Original color (500 is the original color)
+.my-class {
+    background-color: igx-color($charger-fleet-palette, "primary");
+    color: igx-contrast-color($charger-fleet-palette, "primary");
+}
+
+****** Getting lighter shade colors (100 to 400)
+.my-class {
+    background-color: igx-color($charger-fleet-palette, "primary", 100);
+    color: igx-contrast-color($charger-fleet-palette, "primary", 100);
+}
+
+****** Getting darker shade colors (600 to 900)
+.my-class {
+    background-color: igx-color($charger-fleet-palette, "primary", 900);
+    color: igx-contrast-color($charger-fleet-palette, "primary", 900);
+}
+
+****** Getting exaggerated 'accent' versions of the original color (A100,A200,A400 and A700)
+.my-class {
+    background-color: igx-color($charger-fleet-palette, "primary", "A100");
+    color: igx-contrast-color($charger-fleet-palette, "primary", "A100");
+}
+*/
+@import '~@infragistics/igniteui-angular/lib/core/styles/themes/index';
+
+// Our main colors
+$cf-dark-blue: #28303d;
+$cf-blue: #03a9f4;
+$cf-yellow: #ffc107;
+$cf-green: #06c167;
+$cf-red: #dc3545;
+$cf-orange: #ff8c00;
+
+// Other colors that are not part of our theme palette
+$cf-gray: #f1f5f8;
+$cf-row-odd: #eceff1;
+$cf-white: #ffffff;
+$cf-light-gray: #ccc;
+$cf-disabled: #868484;
+$cf-border-gray: #88849c;
+$cf-scroollbar-background: lightgray;
+$cf-black: black;
+$cf-dark-gray: rgb(204, 203, 203);
+$cf-darkest-gray: rgba(74, 85, 104, 1);
+$cf-bg-nav-light: rgba(241, 245, 248, 1);
+$light-bg: #f6f6f6;
+$tr-bg: rgba(237, 242, 247, 1);
+$tr-highlight: #b5e7ff;
+$tr-border: rgba(226, 232, 240, 1);
+// Context menu shadow colors
+$cf-ctx-menu-shadow-1: rgba(0, 0, 0, 0.2);
+$cf-ctx-menu-shadow-2: rgba(0, 0, 0, 0.14);
+$cf-ctx-menu-shadow-3: rgba(0, 0, 0, 0.12);
+$tripnav-gr-1: #ffcd00;
+$tripnav-gr-2: #f8d032;
+$cf-very-light-gray: #eaeaea;
+$cf-box-shadow: rgba(0, 0, 0, 0.35);
+// Generating our custom palette
+$charger-fleet-palette: igx-palette(
+  $primary: $cf-dark-blue,
+  $secondary: $cf-blue,
+  $info: $cf-blue,
+  $success: $cf-green,
+  $warn: $cf-yellow,
+  $error: $cf-red
+);
