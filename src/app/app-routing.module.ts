@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PreloadModulesStrategy } from '@core/preload-modules.strategy';
-import { Roles } from '@shared/enumerations/core/roles.enum';
+import { Roles } from 'shared/enumerations/core/roles.enum';
 
 const routes: Routes = [
   {

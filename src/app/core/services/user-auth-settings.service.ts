@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ObservableStore } from '@codewithdan/observable-store';
-import { UserAuthSettings } from '@shared/models/user-auth-settings.model';
-import { StoreState } from '@shared/models/store-state.model';
+import { UserAuthSettings } from '../../shared/models/user-auth-settings.model';
+import { StoreState } from '../../shared/models/store-state.model';
 
 /**
  * Provides state management for User Authentication Settings by using observable store.
