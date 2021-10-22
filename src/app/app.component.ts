@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserAuthSettingsService } from '@core/services/user-auth-settings.service';
+import { UserAuthSettingsService } from './core/services/user-auth-settings.service';
 import {
   IgxToastComponent,
   IgxToastPosition
